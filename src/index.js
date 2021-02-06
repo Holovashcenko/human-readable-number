@@ -30,11 +30,15 @@ module.exports = function toReadable(number) {
         90: "ninety",
         100: "hundred",
     };
+    const str = String(number);
+    const len = str.length;
+    const isInt10 = Number.isInteger(number/10);
+    const isInt100 = Number.isInteger(number/100);
     if(number <= 20) return strNum[number]
-    if (String(number).length === 2 && Number.isInteger(number/10)) return strNum[number];
-    if (String(number).length === 2 && number < 100 && number > 20) return strNum[Math.floor(number/10) * 10] + " " + strNum[String(number)[1]];
-    if (String(number).length === 3 && Number.isInteger(number/100)) return strNum[String(number)[0]] + " " + strNum[100];
-    if (String(number).length === 3 && Number.isInteger(number/10)) return strNum[String(number)[0]] + " " + strNum[100] + " " + strNum[+String(number)[1] * 10];
-    if (String(number).length === 3 && number <= String(number)[0]+20) return strNum[String(number)[0]] + " " + strNum[100] + " " + strNum[+String(number).slice(1)];
-    if (String(number).length === 3 && number > String(number)[0]+20) return strNum[String(number)[0]] + " " + strNum[100] + " " + strNum[+String(number)[1] * 10] + " " + strNum[+String(number)[2]];
+    if (len === 2 && isInt10) return strNum[number];
+    if (len === 2 && number < 100 && number > 20) return strNum[Math.floor(number/10) * 10] + " " + strNum[str[1]];
+    if (len === 3 && isInt100) return strNum[str[0]] + " " + strNum[100];
+    if (len === 3 && isInt10) return strNum[str[0]] + " " + strNum[100] + " " + strNum[+str[1] * 10];
+    if (len === 3 && number <= str[0]+20) return strNum[str[0]] + " " + strNum[100] + " " + strNum[+str.slice(1)];
+    if (len === 3 && number > str[0]+20) return strNum[str[0]] + " " + strNum[100] + " " + strNum[+str[1] * 10] + " " + strNum[+str[2]];
 };
